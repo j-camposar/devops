@@ -33,7 +33,7 @@ jobs:
     
     - name: build and push
       run: | 
-        docker buil -t $DOCKERHUB_USERNAME/$DOCKERHUB_REPO:$IMAGE_TAG .
+        docker build -t $DOCKERHUB_USERNAME/$DOCKERHUB_REPO:$IMAGE_TAG .
         docker push $DOCKERHUB_USERNAME/$DOCKERHUB_REPO:$IMAGE_TAG
       
     
