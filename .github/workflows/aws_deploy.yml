@@ -39,14 +39,14 @@ jobs:
     - name: deploy wn AWS
       run : |
         mkdir -p ~/.ssh
-        echo "${{secrets.EC2_SSH_KEY}}" > ~/.ssh/id_rsa
+        echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
 
-        ssh $EC2_USER@EC2_HOST "\ 
+        ssh $EC2_USER@$EC2_HOST "\
           docker pull $DOCKERHUB_USERNAME/$DOCKERHUB_REPO:$IMAGE_TAG && \
-          docker stop stop mi-app || true && \
+          docker stop mi-app || true && \
           docker rm mi-app || true && \
-          docker run -d --name mi-app 80:80 $DOCKERHUB_USERNAME/$DOCKERHUB_REPO:$IMAGE_TAG \
+          docker run -d --name mi-app -p 80:80 $DOCKERHUB_USERNAME/$DOCKERHUB_REPO:$IMAGE_TAG \
         "
     
