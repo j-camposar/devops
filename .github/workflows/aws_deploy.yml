@@ -1,0 +1,40 @@
+name: Deploy to Amazon ECS
+
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+  AWS_REGION: MY_AWS_REGION                   # set this to your preferred AWS region, e.g. us-west-1
+  DOCKERHUB_USERNAME: jocamposar #usuario DockerHub
+  DOCKERHUB_REPO: devospClase       #repo DockerHub
+  EC2_USER: ec2-user            #usuario ec2
+  EC2_HOST: 3.143.5.14          #ip publicaEc2    
+  IMAGE_TAG: ${{ github.sha }}  # Tag único por commit
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    
+    - name: login docker github
+      uses: docker/login-actions@v2
+      with: 
+        username: ${{secrets.DOCKERHUB_USERNAME}}
+        password: ${{secrets.DOCKERHUB_TOKEN}}
+    
+    - name: build and push
+      run: | 
+        docker buil -t $DOCKERHUB_USERNAME/$DOCKERHUB_REPO:$IMAGE_TAG .
+        docker push $DOCKERHUB_USERNAME/$DOCKERHUB_REPO:$IMAGE_TAG
+      
+    
+    
