@@ -11,4 +11,6 @@ jobs:
     steps:
       - name : traer codigo
         uses: actions/checkout@v4
+      - name : echo actual
+        run : echo "hola mundo" 
       
