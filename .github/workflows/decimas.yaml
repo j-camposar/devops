@@ -17,3 +17,6 @@ jobs:
           globs: '**/*.md'
           config: '.markdownlint.json'
           args: --ignore README_SINTAXIS.md
+
+      - name: confirmacion
+        run: echo " todo ha pasado bien "
