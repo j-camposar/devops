@@ -8,7 +8,7 @@ Todos los cambios importantes se documentan aquí.
 
 - Corrección de bug en el login.
 
-# [1.0.0] - 2025-08-20
+## [1.0.0] - 2025-08-20
 
 ### Añadido
 
